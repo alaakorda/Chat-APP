@@ -2,8 +2,8 @@ import 'package:chat/constants.dart';
 import 'package:chat/widgets/custom_button.dart';
 import 'package:chat/widgets/custom_textfiled.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
-// ignore: must_be_immutable
 class RegisterScreen extends StatelessWidget {
   RegisterScreen({Key? key}) : super(key: key);
   static String id = 'RegisterScreen';
@@ -51,21 +51,34 @@ class RegisterScreen extends StatelessWidget {
               height: 10,
             ),
             CustomTextFiled(
-                hintlabel: 'Password',
-                onChanged: (data) {
-                  password = data;
-                }),
+              hintlabel: 'Password',
+              onChanged: (data) {
+                password = data;
+              },
+            ),
             const SizedBox(
               height: 20,
             ),
             CustomButtom(
-                text: 'Register',
-                onTap: () async {
-                  var auth = FirebaseAuth.instance;
-                  UserCredential user =
-                      await auth.createUserWithEmailAndPassword(
-                          email: email!, password: password!);
-                }),
+              text: 'Register',
+              onTap: () async {
+                try {
+                  await registerUser();
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('Success'),
+                    ),
+                  );
+                } on FirebaseAuthException catch (e) {
+                  if (e.code == 'weak password') {
+                    showSnackBar(context, 'Weak Password');
+                  } else if (e.code == 'email-already-in-use') {
+                    showSnackBar(context, 'Email already exist');
+                  }
+                  print(e);
+                }
+              },
+            ),
             const SizedBox(
               height: 10,
             ),
@@ -73,7 +86,7 @@ class RegisterScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const Text(
-                  'you aready have account? ',
+                  'you already have account? ',
                   style: TextStyle(color: Colors.white),
                 ),
                 GestureDetector(
@@ -91,6 +104,22 @@ class RegisterScreen extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+
+  void showSnackBar(BuildContext context, String text) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(text),
+      ),
+    );
+  }
+
+  Future<void> registerUser() async {
+    UserCredential user =
+        await FirebaseAuth.instance.createUserWithEmailAndPassword(
+      email: email!,
+      password: password!,
     );
   }
 }
