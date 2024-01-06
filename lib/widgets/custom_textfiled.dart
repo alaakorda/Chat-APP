@@ -6,7 +6,8 @@ class CustomTextFiled extends StatelessWidget {
   Function(String)? onChanged;
   @override
   Widget build(BuildContext context) {
-    return TextField(
+    return TextFormField(
+      validator: (value) => value!.isEmpty ? 'Please Enter Your Email' : null,
       onChanged: onChanged,
       decoration: InputDecoration(
         enabledBorder: const OutlineInputBorder(
