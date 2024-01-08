@@ -1,4 +1,6 @@
 import 'package:chat/constants.dart';
+import 'package:chat/helper/show_snack_bar.dart';
+import 'package:chat/screens/chat_screen.dart';
 import 'package:chat/widgets/custom_button.dart';
 import 'package:chat/widgets/custom_textfiled.dart';
 import 'package:flutter/material.dart';
@@ -62,7 +64,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 const SizedBox(
                   height: 10,
                 ),
-                CustomTextFiled(
+                CustomTextFormFiled(
                   hintlabel: 'Email',
                   onChanged: (data) {
                     email = data;
@@ -71,7 +73,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 const SizedBox(
                   height: 10,
                 ),
-                CustomTextFiled(
+                CustomTextFormFiled(
                   hintlabel: 'Password',
                   onChanged: (data) {
                     password = data;
@@ -89,11 +91,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
                       try {
                         await registerUser();
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text('Success'),
-                          ),
-                        );
+                        Navigator.pushNamed(context, ChatScreen.id);
                       } on FirebaseAuthException catch (e) {
                         if (e.code == 'weak password') {
                           showSnackBar(context, 'Weak Password');
@@ -136,14 +134,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
             ),
           ),
         ),
-      ),
-    );
-  }
-
-  void showSnackBar(BuildContext context, String text) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(text),
       ),
     );
   }

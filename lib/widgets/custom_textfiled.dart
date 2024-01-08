@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
-class CustomTextFiled extends StatelessWidget {
-   CustomTextFiled({Key? key,this.onChanged, required this.hintlabel}) : super(key: key);
+class CustomTextFormFiled extends StatelessWidget {
+  CustomTextFormFiled({Key? key, this.onChanged, required this.hintlabel})
+      : super(key: key);
   final String? hintlabel;
   Function(String)? onChanged;
   @override

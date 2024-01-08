@@ -1,4 +1,5 @@
 import 'package:chat/firebase_options.dart';
+import 'package:chat/screens/chat_screen.dart';
 import 'package:chat/screens/login_screen.dart';
 import 'package:chat/screens/register_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -44,6 +45,7 @@ class MyApp extends StatelessWidget {
       routes: {
         LoginScreen.id:(context) =>  LoginScreen(),
         RegisterScreen.id:(context) =>  RegisterScreen(),
+        ChatScreen.id:(context) =>  ChatScreen(),
       },
      
     );
