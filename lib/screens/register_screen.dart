@@ -27,63 +27,80 @@ class _RegisterScreenState extends State<RegisterScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: KPrimaryColor,
-      body: ModalProgressHUD(
-        color: Colors.purple.shade100,
-        progressIndicator: const CircularProgressIndicator(
-          color: Colors.white, // Set the color of the spinning circle
-        ),
-        inAsyncCall: isloading,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10.0),
-          child: Form(
-            key: formkey,
-            child: Column(
-              children: [
-                const Spacer(
-                  flex: 3,
+      backgroundColor: Colors.transparent,
+      body: Stack(
+        children: [
+          Container(
+            height: double.infinity,
+            width: double.infinity,
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.topRight,
+                colors: [
+                  Color(0xFFB81736),
+                  Color(0xFF281537),
+                ],
+              ),
+            ),
+            child: const Padding(
+              padding: EdgeInsets.only(top: 60.0, left: 22),
+              child: Text(
+                'Create Your \nAccount',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 30,
+                  fontWeight: FontWeight.bold,
                 ),
-                const Text(
-                  'Shcolar Chat',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 32,
-                  ),
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(top: 210.0),
+            child: Container(
+              decoration: const BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(40),
+                  topRight: Radius.circular(40),
                 ),
-                const Row(
-                  children: [
-                    Text(
-                      'Register',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 32,
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                CustomTextFormFiled(
-                  hintlabel: 'Email',
-                  onChanged: (data) {
-                    email = data;
-                  },
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                CustomTextFormFiled(
-                  hintlabel: 'Password',
-                  onChanged: (data) {
-                    password = data;
-                  },
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                CustomButtom(
-                  text: 'Register',
+              ),
+              height: double.infinity,
+              width: double.infinity,
+              child: ModalProgressHUD(
+                inAsyncCall: isloading,
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 27.0, right: 27.0, top: 40),
+                  child: Form(
+                    key: formkey,
+                    child: ListView(
+                      children: [
+                        CustomTextFormFiled(
+                            hintlabel: 'Email',
+                            onChanged: (data) {
+                              email = data;
+                            }),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        CustomTextFormFiled(
+                            hintlabel: 'Password',
+                            obscureText: true,
+                            onChanged: (data) {
+                              password = data;
+                            },),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                         CustomTextFormFiled(
+                            hintlabel: 'Confirm Password',
+                            obscureText: true,
+                            ),
+                       
+                        const SizedBox(
+                          height: 70,
+                        ),
+                        CustomButtom(text: 'SING UP',
                   onTap: () async {
                     if (formkey.currentState!.validate()) {
                       isloading = true;
@@ -91,7 +108,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
                       try {
                         await registerUser();
-                        Navigator.pushNamed(context, ChatScreen.id);
+                        Navigator.pushNamed(context, ChatScreen.id, arguments: email);
                       } on FirebaseAuthException catch (e) {
                         if (e.code == 'weak password') {
                           showSnackBar(context, 'Weak Password');
@@ -107,33 +124,42 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     setState(() {});
                   },
                 ),
-                const SizedBox(
-                  height: 10,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Text(
-                      'you already have account? ',
-                      style: TextStyle(color: Colors.white),
-                    ),
-                    GestureDetector(
+                 const SizedBox(
+                          height: 120,
+                        ),
+                        Align(
+                          alignment: Alignment.bottomRight,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              const Text(
+                                'Do you have an account? ',
+                                style: TextStyle(
+                                    color: Colors.grey,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              GestureDetector(
                       onTap: () => Navigator.pop(context),
-                      child: const Text(
-                        'Login',
-                        style:
-                            TextStyle(color: Color.fromARGB(255, 54, 153, 148)),
-                      ),
+                       child: const Text(
+                                  'sign in ',
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 17),
+                                ),
                     ),
                   ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
-                const Spacer(
-                  flex: 3,
-                ),
-              ],
+              ),
             ),
-          ),
-        ),
+          )
+        ],
       ),
     );
   }

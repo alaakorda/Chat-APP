@@ -9,18 +9,28 @@ class CustomButtom extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        width: double.infinity,
-        height: 50,
+
+        
+        height: 55,
+          width: 300,
         decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(6),
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.topRight,
+            colors: [
+              const Color(0xFFB81736),
+              const Color(0xFF281537),
+            ],
+          ),
+         
+          borderRadius: BorderRadius.circular(30),
         ),
         child: Center(
             child: Text(text!,
-                style: const TextStyle(
+                style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
-                  color: Color(0xFF1B5E20),
+                  color:Colors.white,
                 ))),
       ),
     );
