@@ -155,19 +155,20 @@ class LoginScreen extends StatelessWidget {
       ),//
       ),
        listener: (context, state) {
-        if (state is LoginLoading) {
+        if(state is LoginSuccess){
+          Navigator.pushNamed(context, ChatScreen.id,arguments: email);
+        }
+        else if(state is LoginFaild){
+          showSnackBar(context, state.errorMassage!);
+        }
+        else if(state is LoginLoading){
           isloading = true;
-        }  else if (state is LoginSuccess) {
-          Navigator.pushNamed(
-            context,
-            ChatScreen.id,
-          );
-           isloading = false;
-          
-        } else if (state is LoginFaild) {
-         
-          showSnackBar(context, '${state.errorMassage}');
-           isloading = false;
+        }
+        else if(state is LoginInitial){
+          isloading = false;
+        }
+        else{
+          isloading = false;
         }
       },
     );

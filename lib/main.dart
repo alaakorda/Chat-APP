@@ -1,6 +1,8 @@
 import 'package:chat/firebase_options.dart';
 import 'package:chat/screens/chat_screen.dart';
 import 'package:chat/screens/cubits/login_cubit/login_cubit.dart';
+import 'package:chat/screens/cubits/register_cubit/register_cubit.dart';
+import 'package:chat/screens/cubits/register_cubit/register_state.dart';
 import 'package:chat/screens/login_screen.dart';
 import 'package:chat/screens/opening_screen.dart';
 import 'package:chat/screens/register_screen.dart';
@@ -19,25 +21,27 @@ void main() async {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => LoginCubit(),
-      child: MaterialApp(
-          debugShowCheckedModeBanner: false,
-         
-          initialRoute: 'OpeningScreen',
-          routes: {
-             OpeningScreen.id: (context) => const OpeningScreen(),
-            LoginScreen.id: (context) =>  LoginScreen(),
-            RegisterScreen.id: (context) => const RegisterScreen(),
-            ChatScreen.id: (context) => ChatScreen(),
-           
-          },
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => LoginCubit(),
         ),
+        BlocProvider(
+          create: (context) => RegisterCubit( RegisterInitial()), 
+        ),
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        initialRoute: 'OpeningScreen',
+        routes: {
+          OpeningScreen.id: (context) => const OpeningScreen(),
+          LoginScreen.id: (context) => LoginScreen(),
+          RegisterScreen.id: (context) => RegisterScreen(),
+          ChatScreen.id: (context) => ChatScreen(),
+        },
+      ),
     );
   }
 }
-
-
