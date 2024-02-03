@@ -57,13 +57,10 @@ class _OpeningScreenState extends State<OpeningScreen> {
                 width: 200,
                 height: 200,
               ),
-
               const Center(child: text),
               const SizedBox(
                 height: 127,
               ),
-             
-             
               SizedBox(
                 height: 55,
                 width: 310,
@@ -73,7 +70,6 @@ class _OpeningScreenState extends State<OpeningScreen> {
                     LoginScreen.id,
                   ),
                   style: OutlinedButton.styleFrom(
-                    
                       side: const BorderSide(
                     width: 1,
                     color: Colors.white,
@@ -91,27 +87,27 @@ class _OpeningScreenState extends State<OpeningScreen> {
               const SizedBox(
                 height: 33,
               ),
-              GestureDetector(
-                onTap: () => Navigator.pushNamed(
-                  context,
-                  RegisterScreen.id,
-                ),
-                child: Container(
-                  height: 55,
-                  width: 315,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(30),
-                  ),
-                  child: const Center(
-                      child: Text('SING UP',
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                            color: Color(0xFF281537),
-                          ))),
-                ),
+              ElevatedButton(
+                              
+                              style: ElevatedButton.styleFrom(
+              foregroundColor: const Color(0xFF281537),
+              backgroundColor: Colors.white,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(30),
               ),
+              fixedSize: Size(315, 55),
+                              ),
+                              onPressed: () => Navigator.pushNamed(
+              context,
+              RegisterScreen.id,
+                              ),
+                              child: const Text('SING UP',
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: Color(0xFF281537),
+                )),
+                            ),
               const SizedBox(
                 height: 95,
               ),

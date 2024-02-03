@@ -28,6 +28,7 @@ class RegisterScreen extends StatelessWidget {
       listener: (context, state) {
         if(state is RegisterSuccess){
           Navigator.pushNamed(context, ChatScreen.id,arguments: email);
+          isloading = false;
         }
         else if(state is RegisterFaild){
           showSnackBar(context, state.errorMassage!);

@@ -4,7 +4,7 @@ class Massage {
   final String message;
   final String id;
   Massage(this.message, this.id);
-  factory Massage.formJson(jsonData) {
+  factory Massage.fromJson(jsonData) {
     return Massage(jsonData[KMessage], jsonData['id']);
   }
 }
