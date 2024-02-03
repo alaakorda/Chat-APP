@@ -1,4 +1,4 @@
-# 🚀 Flutter Chat App with Firebase
+# Flutter Chat App with Firebase
 
 A simple chat application built with Flutter and Firebase for user authentication and real-time messaging.
 
