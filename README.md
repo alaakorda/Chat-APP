@@ -10,15 +10,6 @@ A simple chat application built with Flutter and Firebase for user authenticatio
 - **Chat:**
   - Engage in real-time conversations with friends.
 
-## Screenshots
-![image](https://github.com/alaakorda/Chat-APP/assets/124533091/f1dd2dff-5a79-401f-bb8a-a507f86241b0)
-![image](https://github.com/alaakorda/Chat-APP/assets/124533091/958230da-ec32-4779-b769-9ada0df1690f)
-![image](https://github.com/alaakorda/Chat-APP/assets/124533091/3bc26f72-d796-4fba-93d1-bac8964ff302)
-![image](https://github.com/alaakorda/Chat-APP/assets/124533091/7c6bd128-53c5-4e83-8e5b-32a23f356362)
-
-
-
-
 ## Dependencies
 
 ```yaml
