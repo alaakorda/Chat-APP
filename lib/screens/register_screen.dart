@@ -24,11 +24,17 @@ class RegisterScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    TextEditingController emailController = TextEditingController();
+    TextEditingController passwordController = TextEditingController();
+     TextEditingController confirmpasswordController = TextEditingController();
     return BlocConsumer<RegisterCubit, RegisterState>(
       listener: (context, state) {
         if(state is RegisterSuccess){
           Navigator.pushNamed(context, ChatScreen.id,arguments: email);
           isloading = false;
+          confirmpasswordController.clear();
+          emailController.clear();
+          passwordController.clear();
         }
         else if(state is RegisterFaild){
           showSnackBar(context, state.errorMassage!);
@@ -98,7 +104,7 @@ class RegisterScreen extends StatelessWidget {
                                 hintlabel: 'Email',
                                 onChanged: (data) {
                                   email = data;
-                                }),
+                                }, controller: emailController,),
                             const SizedBox(
                               height: 10,
                             ),
@@ -108,13 +114,14 @@ class RegisterScreen extends StatelessWidget {
                               onChanged: (data) {
                                 password = data;
                               },
+                               controller: passwordController,
                             ),
                             const SizedBox(
                               height: 20,
                             ),
                             CustomTextFormFiled(
                               hintlabel: 'Confirm Password',
-                              obscureText: true,
+                              obscureText: true, controller: confirmpasswordController,
                             ),
                             const SizedBox(
                               height: 70,
@@ -129,6 +136,7 @@ class RegisterScreen extends StatelessWidget {
                                 }
                               },
                             ),
+                            
                             const SizedBox(
                               height: 120,
                             ),

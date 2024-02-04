@@ -19,11 +19,10 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
  
-  BlocOverrides.runZoned((){
+
+  Bloc.observer = SimpleBlocObserver();
  runApp( MyApp());
-  },
-  blocObserver : SimpleBlocObserver(),
-  );
+
 }
 
 class MyApp extends StatelessWidget {

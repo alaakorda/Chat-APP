@@ -1,4 +1,3 @@
-import 'package:chat/constants.dart';
 import 'package:chat/helper/show_snack_bar.dart';
 import 'package:chat/screens/chat_screen.dart';
 import 'package:chat/screens/cubits/chat_cubit/chat_cubit.dart';
@@ -7,19 +6,26 @@ import 'package:chat/screens/cubits/login_cubit/login_state.dart';
 import 'package:chat/screens/register_screen.dart';
 import 'package:chat/widgets/custom_button.dart';
 import 'package:chat/widgets/custom_textfiled.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
 class LoginScreen extends StatelessWidget {
-  String? email, password;
   static String id = 'LoginScreen';
+
+   LoginScreen({Key? key}) : super(key: key);
+
+ 
+
+  String? email, password;
+
   bool isloading = false;
 
-  GlobalKey<FormState> formkey = GlobalKey<FormState>();
+  TextEditingController emailController = TextEditingController();
 
-  LoginScreen({super.key});
+  TextEditingController passwordController = TextEditingController();
+
+  GlobalKey<FormState> formkey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -75,19 +81,23 @@ class LoginScreen extends StatelessWidget {
                       child: ListView(
                         children: [
                           CustomTextFormFiled(
-                              hintlabel: 'Email',
-                              onChanged: (data) {
-                                email = data;
-                              }),
+                            hintlabel: 'Email',
+                            onChanged: (data) {
+                              email = data;
+                            },
+                            controller: emailController,
+                          ),
                           const SizedBox(
                             height: 10,
                           ),
                           CustomTextFormFiled(
-                              hintlabel: 'Password',
-                              obscureText: true,
-                              onChanged: (data) {
-                                password = data;
-                              }),
+                            hintlabel: 'Password',
+                            obscureText: true,
+                            onChanged: (data) {
+                              password = data;
+                            },
+                            controller: passwordController,
+                          ),
                           const SizedBox(
                             height: 20,
                           ),
@@ -157,6 +167,8 @@ class LoginScreen extends StatelessWidget {
         if (state is LoginSuccess) {
           BlocProvider.of<ChatCubit>(context).getMassage();
           Navigator.pushNamed(context, ChatScreen.id, arguments: email);
+          emailController.clear();
+          passwordController.clear();
           isloading = false;
         } else if (state is LoginFaild) {
           showSnackBar(context, state.errorMassage!);

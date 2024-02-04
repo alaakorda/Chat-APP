@@ -19,37 +19,38 @@ class ChatScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-          automaticallyImplyLeading: false,
-          title: const Text(
-            'Friends',
-            style: TextStyle(color: Colors.white),
-          ),
-          centerTitle: true,
-          flexibleSpace: Container(
-            decoration: const BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.centerLeft,
-                  end: Alignment.centerRight,
-                  colors: <Color>[
-                    Color(0xFFB81736),
-                    Color(0xFF281537),
-                  ],
-                ),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey,
-                    blurRadius: 5,
-                    offset: Offset(0, 3),
-                  )
-                ]),
-          )),
+        automaticallyImplyLeading: false,
+        title: const Text(
+          'Friends',
+          style: TextStyle(color: Colors.white),
+        ),
+        centerTitle: true,
+        flexibleSpace: Container(
+          decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.centerLeft,
+                end: Alignment.centerRight,
+                colors: <Color>[
+                  Color(0xFFB81736),
+                  Color(0xFF281537),
+                ],
+              ),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey,
+                  blurRadius: 5,
+                  offset: Offset(0, 3),
+                )
+              ]),
+        ),
+      ),
       body: Column(
         children: [
           Expanded(
             child: BlocBuilder<ChatCubit, ChatState>(
-             
               builder: (context, state) {
-                var massagesList = BlocProvider.of<ChatCubit>(context).massagesList;
+                var massagesList =
+                    BlocProvider.of<ChatCubit>(context).massagesList;
                 return ListView.builder(
                   reverse: true,
                   controller: _controller,
@@ -86,9 +87,9 @@ class ChatScreen extends StatelessWidget {
                 child: TextField(
                   controller: massageController,
                   onSubmitted: (data) {
-                    BlocProvider.of<ChatCubit>(context).sendMassage(
-                        massage: data, email: email.toString());
-                    
+                    BlocProvider.of<ChatCubit>(context)
+                        .sendMassage(massage: data, email: email.toString());
+
                     // print('Submitted: $data');
                     // massages.add({
                     //   'massages': data,
@@ -107,8 +108,9 @@ class ChatScreen extends StatelessWidget {
                     hintText: ' Type message...',
                     suffixIcon: IconButton(
                       onPressed: () {
-                         BlocProvider.of<ChatCubit>(context).sendMassage(
-                        massage: massageController.text , email: email.toString());
+                        BlocProvider.of<ChatCubit>(context).sendMassage(
+                            massage: massageController.text,
+                            email: email.toString());
                         // massages.add({
                         //   'massages': massageController.text,
                         //   'massageTime': DateTime.now(),
